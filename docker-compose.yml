@@ -1,0 +1,79 @@
+version: '3.7'
+
+services:
+  hub:
+    image: selenium/hub:3.10.0
+    ports:
+      - 4444:4444
+
+  chrome1:
+    image: selenium/node-chrome-debug
+    depends_on:
+      - hub
+    environment:
+      - HUB_HOST=hub
+    ports:
+      - 1337:4444
+      - 1338:5900
+    volumes:
+      - /dev/shm:/dev/shm
+
+  chrome2:
+    image: selenium/node-chrome-debug
+    depends_on:
+      - hub
+    environment:
+      - HUB_HOST=hub
+    ports:
+      - 1339:4444
+      - 1340:5900
+    volumes:
+      - /dev/shm:/dev/shm
+
+  chrome3:
+    image: selenium/node-chrome-debug
+    depends_on:
+      - hub
+    environment:
+      - HUB_HOST=hub
+    ports:
+      - 1341:4444
+      - 1342:5900
+    volumes:
+      - /dev/shm:/dev/shm
+
+  firefox1:
+    image: selenium/node-firefox-debug
+    depends_on:
+      - hub
+    environment:
+      - HUB_HOST=hub
+    ports:
+      - 1343:4444
+      - 1344:5900
+    volumes:
+      - /dev/shm:/dev/shm
+
+  firefox2:
+    image: selenium/node-firefox-debug
+    depends_on:
+      - hub
+    environment:
+      - HUB_HOST=hub
+    ports:
+      - 1345:4444
+      - 1346:5900
+    volumes:
+      - /dev/shm:/dev/shm
+
+  firefox3:
+    image: selenium/node-firefox-debug
+    depends_on:
+      - hub
+    environment:
+      - HUB_HOST=hub
+    ports:
+      - 1347:4444
+      - 1348:5900
+    volumes:
+      - /dev/shm:/dev/shm
