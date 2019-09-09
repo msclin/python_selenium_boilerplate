@@ -9,15 +9,23 @@ from tests import config
 
 def pytest_addoption(parser):
     parser.addoption(
-        "--browser",
-        action="store",
-        default="chrome",
-        help="browser used for testing"
+        '--baseurl',
+        action='store',
+        default='https://www.google.com',
+        help='base URL for the application under test'
+    )
+
+    parser.addoption(
+        '--browser',
+        action='store',
+        default='chrome',
+        help='browser used for testing'
     )
 
 
 @pytest.fixture()
 def driver(request):
+    config.baseurl = request.config.getoption('--baseurl')
     config.browser = request.config.getoption('--browser')
 
     _driver = None
@@ -38,7 +46,7 @@ def driver(request):
             desired_capabilities=DesiredCapabilities.FIREFOX
         )
     else:
-        pytest.fail()
+        pytest.fail(f'Do not recognize the --browser option "{config.browser}." Valid options: chrome, firefox')
 
     def _quit():
         _driver.quit()
